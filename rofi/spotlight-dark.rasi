@@ -1,0 +1,108 @@
+/*******************************************************************************
+ * MACOS SPOTLIGHT LIKE DARK THEME FOR ROFI 
+ * User                 : ulises-jeremias               
+ * Theme Repo           : https://github.com/ulises-jeremias/rofi-themes
+ *******************************************************************************/
+
+configuration {
+    font            : "FantasqueSansMono Nerd Font 12";
+    display-ssh     : "";
+    display-run     : "";
+    display-drun    : "";
+    display-window  : "";
+    display-combi   : "";
+
+}
+* {
+    bg-color: #19171a; /*primdark*/
+    fg-color: #ffb000; //amber
+    tooltip-fg-color: #614f30;
+    selected-bg-color: #614f30;//bronze
+    selected-fg-color: #19171a;//primdark
+    insensitive-bg-color: #614f30;
+    insensitive-fg-color: #aa7d3e;//oro
+
+    text-color          : @fg-color;
+}
+#window {
+    location            : center;
+    y-offset            : -200;
+    width               : 640;
+    border-radius       : 8;
+    background-color    : @bg-color;
+}
+#mainbox {
+    spacing             : 0;
+    background-color    : transparent;
+}
+#inputbar {
+    font                : "FantasqueSansMono Nerd Font 16";
+    background-color    : transparent;
+}
+#prompt {
+    text-color          : @tooltip-fg-color;
+    font                : inherit;
+    background-color    : inherit;
+    margin              : 16 16 24 20;
+}
+#entry {
+    font                : "FantasqueSansMono Nerd Font Italic 16";
+    background-color    : inherit;
+    placeholder         : "Search";
+    placeholder-color   : @insensitive-fg-color;
+    margin              : 16 0;
+}
+#case-indicator {
+    margin              : 8 8 8 24;
+    font                : inherit;
+    background-color    : inherit;
+}
+#message {
+    padding             : 0;
+    border              : 2 0 0;
+    border-color        : @insensitive-bg-color;
+    background-color    : @insensitive-bg-color;
+}
+#textbox {
+    padding             : 8 24;
+    background-color    : inherit;
+}
+#listview {
+    lines               : 10;
+    columns             : 1;
+    fixed-height        : false;
+    spacing             : 0;
+    scrollbar           : false;
+    background-color    : transparent;
+    border              : 2 0 0;
+    border-color        : @insensitive-bg-color;
+}
+#element {
+    padding             : 8 24;
+    background-color    : transparent;
+}
+#element normal normal {
+}
+#element normal urgent {
+}
+#element normal active {
+    text-color          : @selected-bg-color;
+}
+#element selected normal {
+    background-color    : @selected-bg-color;
+    text-color          : @selected-fg-color;
+}
+#element selected urgent {
+}
+#element selected active {
+    background-color    : @selected-bg-color;
+    text-color          : @selected-fg-color;
+}
+#element-icon {
+    size                : 1em;
+    margin              : 0 16 0 0;
+    background-color    : transparent;
+}
+#element-text {
+    background-color    : transparent;
+}

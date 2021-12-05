@@ -1,0 +1,182 @@
+
+
+
+#Modifier (Windows Key, Super, mapped to Caps Lock)
+set $mod Mod4
+
+
+
+# Section Visual
+
+# Font for window titles.
+font pango:FantasqueSansMono Nerd Font 13
+
+# Basic colorsheme (ambers and yellows over purple blacks)
+
+set $rose	#c77575
+set $plum	#612020
+set $primdark	#19171a
+set $secdark	#201e21
+set $amber	#FFB000
+set $napoles	#DDC064
+set $oro	#AA7D3E
+
+# Some gaps, the're sexy
+gaps outer	7
+gaps inner	8
+default_border none
+
+# Window colorscheme
+#			border		background		text		indicator
+client.focused		$primdark	$primdark		$amber		$plum
+client.unfocused	$secdark	$secdark		$oro		$secdark
+client.focused_inactive	$secdark	$secdark		$oro		$secdark
+client.urgent		$plum		$plum			$primdark	$plum
+
+
+
+# Section bindings
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec i3-sensible-terminal
+
+# kill focused window
+bindsym $mod+q kill
+
+# start rofi (a program launcher)
+bindsym $mod+d exec  rofi -modi run#ssh#filebrowser#windowcd#drun -show drun
+
+# Scratchpad
+
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod+minus scratchpad show
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation (in this config, `h` is used as left)
+bindsym $mod+b split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+bindsym $mod+Shift+a focus child
+
+# Section Wokspaces
+
+# Define names for default workspaces for which we configure key bindings later on.
+set $ws1 "I"
+set $ws2 "II"
+set $ws3 "III"
+set $ws4 "IV"
+set $ws5 "V"
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+# reload config is redundant
+bindsym $mod+Shift+r restart
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+
+bindsym $mod+shift+x exec i3lock --color "$oro"
+
+# Section Execs
+
+# Start XDG autostart .desktop files using dex.
+exec --no-startup-id dex --autostart --environment i3
+
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# screen before suspend. Use loginctl lock-session to lock your screen.
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --color $oro --nofork
+
+# Set background, xrandr, picom, polybar, and exec init config script
+exec_always feh --bg-scale /home/uri/.config/wallpaper
+exec_always /home/uri/.screenlayout/torre.sh
+exec_always picom -f
+exec_always --no-startup-id $HOME/.config/polybar/minimal/launch.sh
+exec kitty python3 $HOME/.config/scripts/on-start-portable

@@ -1,0 +1,41 @@
+# !/bin/python3
+import subprocess
+
+
+print( "Este es el asistente de configuración portable de Even:")
+
+print("¿Estás en el Mac?")
+m = str(input("[s/N]> "))
+
+if m == "s":
+	subprocess.run(["xlayoutdisplay"])
+	subprocess.run(["sudo", "modprobe", "wl"])
+	subprocess.run(["sudo", "modprobe", "brcmfmac"])
+	subprocess.run(["clear"])
+
+
+
+print( "¿Donde estoy?")
+print( "	[p] Plasencia")
+print( "	[s] Salamanca")
+print( "	[o] otro")
+
+lugar = str(input("\n> "))
+
+if lugar == "p":
+	subprocess.run(["sudo", "netctl", "start", "Plasencia"])
+	subprocess.run(["sudo", "dhcpcd"])
+elif lugar == "s":
+	subprocess.run(["sudo", "netctl", "start", "Salamanca"])
+	subprocess.run(["sudo dhcpcd"])
+else:
+	print("Estás en otro lugar, ¿quieres conectarte a través de la consola de `iwctl`?")
+	iw = str(input("[s/N]> "))
+	if iw == "s":
+		subprocess.run(["sudo", "iwctl"])
+
+print("(2/2) Red configurada")
+print("OK")
+subprocess.run(["zsh"])
+subprocess.run(["clear"])
+
